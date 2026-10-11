@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes navbar-in {
+  from {
+    transform: translate(1.6px, -122px);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes logo-fade {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+
+  17.923% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes logo-rise {
+  0% {
+    transform: translate(0, 0);
+    animation-timing-function: cubic-bezier(0, 2.528, 0.318, 1.037);
+  }
+
+  95.887% {
+    transform: translate(-0.5px, -29.5px);
+  }
+
+  100% {
+    transform: translate(-0.5px, -29.5px);
+  }
+}
+
+.hero-logo {
+  animation: logo-fade 2.567s linear both, logo-rise 2.567s linear both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo {
+    animation: none;
+  }
+}
+
+@keyframes title-slide {
+  from {
+    transform: translate(-610px, -3px);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes box-grow {
+  from {
+    max-width: 6.5px;
+  }
+
+  to {
+    max-width: 680px;
+  }
+}
+
+@keyframes glow-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-title {
+  animation: title-slide 2s cubic-bezier(0.7, -0.4, 0.4, 1.4) both;
+}
+
+.hero-glow {
+  animation: glow-in 1.747s ease-out both;
+}
+
+/* Kotak melebar hanya di layar besar, supaya teks tidak "loncat" saat melebar di layar kecil */
+@media (min-width: 64rem) {
+  .hero-box {
+    animation: box-grow 1.747s cubic-bezier(0, 0, 0, 1.004) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-title,
+  .hero-box,
+  .hero-glow {
+    animation: none;
+  }
+}
+
+.border-grad-red,
+.border-grad-yellow {
+  background: rgba(23, 23, 23, 0.3);
+}
+
+.border-grad-red::before,
+.border-grad-yellow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.border-grad-red::before {
+  background: linear-gradient(135deg, #ff1e1e, #f9d00a);
+}
+
+.border-grad-yellow::before {
+  background: linear-gradient(135deg, #f9d00a, #ff1e1e);
+}
