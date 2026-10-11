@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 /*
  * Semua angka ukuran/posisi di bawah = nilai di Figma "Frame 29" dibagi 8
@@ -124,17 +125,18 @@ export default function LogoDivisi() {
   const current = divisi.find((d) => d.slug === active) ?? null;
 
   return (
-    <section className="relative px-6 pb-24 lg:pb-[200px]">
-      {/* Judul bagian: gaya garis gradasi merah-kuning, sama seperti kotak "VIDEO PROFILE" */}
-      <h2 className="border-grad-red relative mx-auto mb-16 flex h-[72px] w-[min(100%,555px)] items-center justify-center rounded-[16px] text-[clamp(1.5rem,6vw,36px)] font-bold text-white backdrop-blur-[15px] lg:mb-[88px] lg:h-[88px]">
-        LOGO DIVISI
-      </h2>
+    // lg:pb-[487px] = ruang kosong di bawah panel di Figma. Saat panel memanjang (hover),
+    // panel menimpa ruang kosong itu, jadi bagian lain di bawahnya tidak ikut bergeser.
+    <section className="relative px-6 pb-24 lg:pb-[487px]">
+      <SectionTitle className="mb-8 lg:mb-4">LOGO DIVISI</SectionTitle>
 
+      {/* Penampung setinggi panel saat diam (337px); panel di dalamnya boleh memanjang ke bawah */}
+      <div className="relative mx-auto max-w-[1004px] lg:h-[337px]">
       {/* Panel gelap ("Background Hitam" di Figma). Tingginya bertambah saat ada kotak yang aktif. */}
       <div
         ref={panelRef}
         onMouseLeave={() => setActive(null)}
-        className={`relative mx-auto max-w-[1004px] rounded-[25px] bg-[#191818] p-6 transition-[height] duration-500 ease-out motion-reduce:transition-none lg:px-[38.3px] lg:pb-0 lg:pt-[63.6px] ${
+        className={`relative rounded-[25px] bg-[#191818] p-6 transition-[height] duration-500 ease-out motion-reduce:transition-none lg:absolute lg:inset-x-0 lg:top-0 lg:z-20 lg:px-[38.3px] lg:pb-0 lg:pt-[63.6px] ${
           active ? "lg:h-[662px]" : "lg:h-[337px]"
         }`}
       >
@@ -236,6 +238,7 @@ export default function LogoDivisi() {
             <InfoCard d={current} className="w-full" />
           </div>
         )}
+      </div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import HomeGlow from "@/components/sections/HomeGlow";
 import Hero from "@/components/sections/Hero";
 import VideoProfile from "@/components/sections/VideoProfile";
 import LogoDivisi from "@/components/sections/LogoDivisi";
+import Pengurus from "@/components/sections/Pengurus";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <Hero />
       <VideoProfile />
       <LogoDivisi />
-      {/* Bagian berikutnya (Pengurus, dst.) ditambahkan di sini */}
+      <Pengurus />
+      {/* Bagian berikutnya (Tujuan BLUG, Visi & Misi, dst.) ditambahkan di sini */}
     </div>
   );
 }
