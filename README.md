@@ -6,7 +6,9 @@ Repositori resmi untuk pengembangan website profil **Batam Linux User Group (BLU
 
 ## 📋 Daftar Isi
 - [Tentang Projek](#-tentang-projek)
+- [Halaman & Fitur Utama](#-halaman--fitur-utama)
 - [Teknologi yang Digunakan](#-teknologi-yang-digunakan)
+- [Arsitektur Data & Mock API](#-arsitektur-data--mock-api)
 - [Prasyarat Sistem (Prerequisites)](#-prasyarat-sistem-prerequisites)
 - [Panduan Setup & Menjalankan Projek (Step-by-Step)](#-panduan-setup--menjalankan-projek-step-by-step)
   - [1. Clone Repositori](#1-clone-repositori)
@@ -17,21 +19,52 @@ Repositori resmi untuk pengembangan website profil **Batam Linux User Group (BLU
 - [Daftar Perintah Tersedia (NPM Scripts)](#-daftar-perintah-tersedia-npm-scripts)
 - [Struktur Direktori Projek](#-struktur-direktori-projek)
 - [Solusi Masalah Umum (Troubleshooting)](#-solusi-masalah-umum-troubleshooting)
+- [Panduan Kontribusi](#-panduan-kontribusi)
 
 ---
 
 ## 💡 Tentang Projek
-Website ini memuat informasi profil organisasi, komunitas open-source Batam Linux User Group, kampanye Open Source Camp (OSC) 2026, profil video, informasi divisi, dan kegiatan komunitas.
+Website ini merupakan website profil resmi dari komunitas **Batam Linux User Group (BLUG)**, sebuah komunitas pegiat Linux dan Open Source di Batam. Website ini memuat informasi profil organisasi, kampanye Open Source Camp (OSC) 2026, video profil, struktur divisi dan pengurus harian (BPH), visi misi, program kerja unggulan, publikasi artikel & workshop, serta formulir kontak.
+
+---
+
+## 🌐 Halaman & Fitur Utama
+
+Website ini menggunakan sistem routing **Next.js App Router**:
+
+| Rute | Halaman | Fitur & Komponen Utama |
+| :--- | :--- | :--- |
+| `/` | **Beranda** | • **Hero**: Sambutan, ajakan pendaftaran OSC 2026, logo Open Source Initiative.<br>• **Video Profile**: Tautan dan preview interaktif channel YouTube Batam Linux.<br>• **Logo Divisi**: Selektor interaktif 5 divisi (Inti, HRD, Siber, Programming, Medinfo) lengkap dengan foto ketua dan deskripsi divisi.<br>• **Pengurus**: Carousel 2 slide banner BPH BLUG 2026 berlatar tipografi Karantina dan foto bersama.<br>• **Tujuan BLUG**: Kutipan visi filosofis organisasi.<br>• **Visi & Misi**: Kartu interaktif flip/hover untuk membaca detail visi & misi.<br>• **Keseruan Belajar**: Program unggulan (Belajar Linux bareng Siber & Belajar Programming bareng BLUG). |
+| `/tentang` | **Tentang Kami** | • **Tentang Hero**: Sambutan halaman tentang kami.<br>• **Who Are We**: Pengenalan identitas BLUG.<br>• **Sejarah**: Timeline & narasi kilas balik berdirinya komunitas di Politeknik Negeri Batam.<br>• **BPH Header**: Bagian pembuka struktur Badan Pengurus Harian. |
+| `/artikel` | **Artikel & Workshop** | • **Artikel Hero**: Pengantar artikel.<br>• **Pencarian & Filter Kategori**: Filter kata kunci query `?q=` dan filter tag kategori `?tag=`.<br>• **Artikel Unggulan & Grid**: Daftar artikel dan workshop.<br>• **Paginasi**: Navigasi halaman `?page=`.<br>• **Suspense Streaming**: Pemuatan data berbasis Next.js Suspense. |
+| `/kontak` | **Kontak Kami** | • **Kontak Info**: Informasi email, sosial media (Instagram, GitHub, YouTube), dan alamat sekretariat dengan kartu glassmorphism.<br>• **Kontak Form**: Formulir pesan langsung bagi pengunjung/mitra. |
 
 ---
 
 ## 🛠 Teknologi yang Digunakan
 - **Framework:** [Next.js 16 (App Router)](https://nextjs.org/)
-- **Library UI:** [React 19](https://react.dev/)
+- **Library UI:** [React 19](https://react.dev/) & React DOM 19
 - **Bahasa Pemrograman:** [TypeScript 5](https://www.typescriptlang.org/)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) dengan `@tailwindcss/turbopack`
-- **Font:** Google Fonts (`Inter` & `Montserrat`) melalui `next/font`
-- **Bundler:** Turbopack
+- **Tipografi & Font:** Google Fonts via `next/font/google`:
+  - `Inter` (Font teks utama)
+  - `Montserrat` (Font judul & aksen)
+  - `Karantina` (Font display khusus banner pengurus)
+  - `Hanken Grotesk` (Font display)
+- **Bundler:** Turbopack (kompilasi kilat untuk dev & build)
+
+---
+
+## 🔌 Arsitektur Data & Mock API (`lib/api.ts`)
+Saat ini integrasi backend sungguhan masih dalam proses pengembangan. Untuk memastikan halaman seperti `/artikel` dapat bekerja secara dinamis dan realistis, projek ini menggunakan **abstraksi data layer** di file:
+`lib/api.ts`
+
+- `getArtikelList({ q, kategori })`: Mengambil daftar artikel dengan filter pencarian dan kategori.
+- `getArtikelBySlug(slug)`: Mengambil artikel spesifik berdasarkan slug URL.
+- `getKategori()`: Mengambil daftar kategori yang tersedia.
+
+> 💡 **Untuk Tim Backend/Pengembang Selanjutnya:**  
+> Ketika API backend resmi sudah siap, Anda cukup memperbarui isi fungsi di `lib/api.ts` dengan `fetch(...)` ke endpoint backend tanpa perlu merombak struktur komponen halaman.
 
 ---
 
@@ -46,7 +79,7 @@ Sebelum melakukan clone, pastikan komputer/laptop kamu sudah terpasang software 
    Cek versi: `npm -v`
 4. Code Editor: [VS Code](https://code.visualstudio.com/), Cursor, atau editor favorit kamu.
 
-> ⚠️ **Catatan Penting:** Projek ini menggunakan Next.js 16 dan React 19 yang memerlukan Node.js versi modern (minimal Node.js v18.18+, disarankan **Node.js v20 ke atas**).
+> ⚠️ **Catatan:** Projek ini menggunakan Next.js 16 dan React 19 yang memerlukan **Node.js minimal v20 ke atas**.
 
 ---
 
@@ -100,7 +133,7 @@ Buka peramban (browser) favorit kamu dan akses URL berikut:
 http://localhost:3000
 ```
 
-Kamu sekarang sudah bisa melihat tampilan website dan mulai berkontribusi! Perubahan kode yang kamu simpan akan otomatis ter-update secara real-time (*Fast Refresh*).
+Kamu sekarang sudah bisa melihat tampilan website dan mulai menjelajahi halaman Beranda, Tentang, Artikel, maupun Kontak!
 
 ---
 
@@ -120,17 +153,42 @@ Kamu sekarang sudah bisa melihat tampilan website dan mulai berkontribusi! Perub
 ```text
 website_profile_blug_2026_dev/
 ├── app/
+│   ├── artikel/            # Rute /artikel (Pencarian, filter, dan kartu artikel)
+│   ├── kontak/             # Rute /kontak (Informasi sekretariat & formulir pesan)
+│   ├── tentang/            # Rute /tentang (Who We Are, Sejarah, Profil BPH)
 │   ├── favicon.ico         # Icon browser
-│   ├── globals.css         # Styling global & konfigurasi animasi Tailwind
-│   ├── layout.tsx          # Root layout utama (Navbar, Footer, Font setup)
-│   └── page.tsx            # Halaman beranda utama
+│   ├── globals.css         # Styling global & konfigurasi animasi kustom Tailwind
+│   ├── layout.tsx          # Root layout utama (Font setup, Navbar, Footer)
+│   └── page.tsx            # Halaman utama (Beranda)
 ├── components/
-│   ├── layout/             # Komponen tata letak (Navbar, Footer)
-│   └── sections/           # Komponen bagian halaman (Hero, VideoProfile, HomeGlow)
-├── public/                 # Asset statis publik (gambar mascot, logo, svg)
+│   ├── layout/             # Komponen navigasi & footer global (Navbar, Footer)
+│   ├── sections/           # Komponen section per fitur:
+│   │   ├── artikel/        # Komponen khusus halaman artikel (Hero, Filter, Cards)
+│   │   ├── kontak/         # Komponen khusus halaman kontak (KontakInfo, KontakForm)
+│   │   ├── tentang/        # Komponen khusus halaman tentang (TentangHero, WhoAreWe, Sejarah)
+│   │   ├── Hero.tsx        # Section Hero beranda & CTA OSC
+│   │   ├── HomeGlow.tsx    # Efek cahaya latar belakang beranda
+│   │   ├── KeseruanBelajar.tsx # Section program unggulan
+│   │   ├── LogoDivisi.tsx  # Section selektor interaktif divisi BLUG
+│   │   ├── Pengurus.tsx    # Section carousel banner BPH BLUG
+│   │   ├── TujuanBlug.tsx  # Section kutipan & tujuan organisasi
+│   │   ├── VideoProfile.tsx# Section video profil YouTube
+│   │   └── VisiMisi.tsx    # Section flip card visi & misi
+│   └── ui/                 # Komponen antarmuka yang dapat digunakan ulang (Reusable UI):
+│       ├── ProgramCard.tsx # Kartu program kerja
+│       └── SectionTitle.tsx# Judul section dengan border gradasi khas
+├── lib/
+│   └── api.ts              # Lapisan data / mock API artikel & kategori
+├── public/                 # Asset statis publik:
 │   └── images/
-│       └── hero/           # Asset gambar bagian hero (maskot OSC, logo OSI)
-├── next.config.ts          # Konfigurasi Next.js & Turbopack
+│       ├── artikel/        # Gambar thumbnail artikel & workshop
+│       ├── divisi/         # Logo & foto ketua masing-masing divisi
+│       ├── footer/         # Asset logo footer & icon
+│       ├── hero/           # Maskot OSC & logo OSI
+│       ├── pengurus/       # Foto pengurus BPH BLUG
+│       ├── program/        # Icon & ilustrasi program unggulan
+│       └── tentang/        # Foto sejarah & dokumentasi tentang kami
+├── next.config.ts          # Konfigurasi Next.js (Turbopack, cacheComponents, partialPrefetching)
 ├── package.json            # Daftar dependensi dan scripts npm
 ├── tsconfig.json           # Konfigurasi TypeScript
 └── README.md               # Dokumentasi panduan instalasi & penggunaan
@@ -151,7 +209,7 @@ website_profile_blug_2026_dev/
 
 ### 2. Port `3000` Sudah Digunakan (`Port 3000 is already in use`)
 **Penyebab:** Ada aplikasi lain yang sedang berjalan di port 3000.  
-**Solusi:** Next.js biasanya otomatis menawarkan beralih ke port `3001`. Jika ingin menentukan port lain secara manual:
+**Solusi:** Next.js otomatis menawarkan beralih ke port `3001`. Jika ingin menentukan port lain secara manual:
 ```bash
 npm run dev -- -p 3005
 ```
@@ -180,10 +238,26 @@ npm run dev
 
 ---
 
-## 🤝 Kontribusi
-1. Fork atau buat branch baru: `git checkout -b fitur-kamu`
-2. Lakukan perubahan dan commit: `git commit -m 'feat: tambah fitur baru'`
-3. Push ke branch kamu: `git push origin fitur-kamu`
-4. Buat Pull Request (PR) ke branch `main`.
+## 🤝 Panduan Kontribusi
+1. Fork repositori ini atau buat branch baru dari `main`:
+   ```bash
+   git checkout -b fitur/nama-fitur-kamu
+   ```
+2. Lakukan perubahan kode dan pastikan berjalan lancar secara lokal:
+   ```bash
+   npm run lint
+   npm run build
+   ```
+3. Commit perubahan dengan pesan yang deskriptif:
+   ```bash
+   git commit -m "feat: tambahkan fitur xyz"
+   ```
+4. Push ke branch kamu:
+   ```bash
+   git push origin fitur/nama-fitur-kamu
+   ```
+5. Buat **Pull Request (PR)** ke branch `main`.
 
-Selamat ngoding bersama Batam Linux User Group! 🚀
+---
+
+Selamat berkontribusi bersama **Batam Linux User Group**! 🐧🚀
