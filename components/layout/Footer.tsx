@@ -7,7 +7,7 @@ const navLeft = [
 ];
 
 const navRight = [
-  { label: "Artikel", href: "/blog" },
+  { label: "Artikel", href: "/artikel" },
   { label: "Kontak", href: "/kontak" },
 ];
 

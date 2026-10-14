@@ -11,7 +11,7 @@ const leftLinks = [
 ];
 
 const rightLinks = [
-  { label: "Artikel", href: "/blog" },
+  { label: "Artikel", href: "/artikel" },
   { label: "Kontak", href: "/kontak" },
 ];
 
@@ -32,9 +32,8 @@ function NavLink({
       href={href}
       onClick={onClick}
       aria-current={active ? "page" : undefined}
-      className={`text-base text-black decoration-[#f3c803] decoration-2 underline-offset-[5px] md:text-[11px] ${
-        active ? "font-bold underline" : "font-normal hover:underline"
-      }`}
+      className={`text-base text-black decoration-[#f3c803] decoration-2 underline-offset-[5px] md:text-[11px] ${active ? "font-bold underline" : "font-normal hover:underline"
+        }`}
     >
       {label}
     </Link>
