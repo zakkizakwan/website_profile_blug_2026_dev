@@ -4,6 +4,18 @@ import Image from "next/image";
 import { useState } from "react";
 import SectionTitle from "@/components/ui/SectionTitle";
 
+/*
+ * Banner "BPH BLUG" berupa carousel 2 slide (Frame 42 di Figma: Default & Variant2).
+ *
+ * Banner ini selebar halaman, jadi ukurannya mengikuti lebar layar:
+ *   1 satuan "u" = 1px pada lebar desain 1398,5px (Figma 2797px dibagi 2), tapi dihitung
+ *   dari lebar wadah (cqw), jadi seluruh banner membesar/mengecil secara proporsional.
+ *
+ * Gambar (public/images/pengurus/):
+ *   foto-1.png -> layer "Copy of Feed IG BPH (3) 1" (foto BPH berlatar transparan, slide 1)
+ *   foto-2.png -> layer "BPH BLUG Periode 25 2"      (foto slide 2)
+ */
+
 const u = (n: number) => `calc(var(--u) * ${n})`;
 
 const SLIDE_HEIGHT = [320.5, 484]; // tinggi tiap slide dalam satuan u
@@ -75,13 +87,13 @@ export default function Pengurus() {
             />
             <p
               style={{ left: u(306.5), top: u(85), fontSize: u(178.8) }}
-              className="absolute -translate-y-1/2 whitespace-nowrap font-[family-name:var(--font-karantina)] font-bold leading-none text-[#fff8d6]"
+              className="absolute -translate-y-1/2 whitespace-nowrap font-[family-name:var(--font-karantina),Impact,Haettenschweiler,sans-serif] font-bold leading-none text-[#fff8d6]"
             >
               BPH BLUG
             </p>
             <p
               style={{ right: `calc(100% - ${u(1122)})`, top: u(85), fontSize: u(197.9) }}
-              className="absolute -translate-y-1/2 whitespace-nowrap font-[family-name:var(--font-karantina)] font-bold leading-none text-[#fff8d6]"
+              className="absolute -translate-y-1/2 whitespace-nowrap font-[family-name:var(--font-karantina),Impact,Haettenschweiler,sans-serif] font-bold leading-none text-[#fff8d6]"
             >
               2026
             </p>

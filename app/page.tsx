@@ -3,6 +3,9 @@ import Hero from "@/components/sections/Hero";
 import VideoProfile from "@/components/sections/VideoProfile";
 import LogoDivisi from "@/components/sections/LogoDivisi";
 import Pengurus from "@/components/sections/Pengurus";
+import TujuanBlug from "@/components/sections/TujuanBlug";
+import VisiMisi from "@/components/sections/VisiMisi";
+import KeseruanBelajar from "@/components/sections/KeseruanBelajar";
 
 export default function Home() {
   return (
@@ -13,7 +16,9 @@ export default function Home() {
       <VideoProfile />
       <LogoDivisi />
       <Pengurus />
-      {/* Bagian berikutnya (Tujuan BLUG, Visi & Misi, dst.) ditambahkan di sini */}
+      <TujuanBlug />
+      <VisiMisi />
+      <KeseruanBelajar />
     </div>
   );
 }

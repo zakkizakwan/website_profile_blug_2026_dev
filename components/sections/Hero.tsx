@@ -4,26 +4,25 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="relative px-6 pb-[110px] pt-36 lg:px-[150px] lg:pt-[260px]">
-      {/* PENTING: jangan beri z-index di wrapper ini. z-index membuat "stacking context"
-          yang membuat efek mix-blend-lighten pada logo tidak melihat latar gelap di belakangnya. */}
+      {/* Tombol Daftar OSC: di luar wrapper supaya `right` dihitung dari tepi section */}
+      <Link
+        href="#" // TODO: ganti dengan link pendaftaran OSC
+        aria-label="Daftar OSC 2026"
+        className="relative mb-10 block h-[195px] w-[336px] origin-left scale-90 lg:absolute lg:right-[57px] lg:top-[28px] lg:mb-0 lg:scale-100"
+      >
+        <span className="absolute left-[81px] top-[54px] flex h-[86px] w-[255px] items-center justify-center rounded-[13px] bg-[#e9672d] text-[22px] font-bold text-white">
+          DAFTAR OSC 2026
+        </span>
+        <Image
+          src="/images/hero/osc-mascot.png"
+          alt=""
+          width={134}
+          height={195}
+          className="absolute left-0 top-0"
+        />
+      </Link>
       <div className="relative">
         {/* Tombol Daftar OSC (kanan atas di desktop) */}
-        <Link
-          href="#" // TODO: ganti dengan link pendaftaran OSC
-          aria-label="Daftar OSC 2026"
-          className="relative mb-10 block h-[195px] w-[336px] origin-left scale-90 lg:absolute lg:right-[57px] lg:top-[28px] lg:mb-0 lg:scale-100"
-        >
-          <span className="absolute left-[81px] top-[54px] flex h-[86px] w-[255px] items-center justify-center rounded-[13px] bg-[#e9672d] text-[22px] font-bold text-white">
-            DAFTAR OSC 2026
-          </span>
-          <Image
-            src="/images/hero/osc-mascot.png"
-            alt=""
-            width={134}
-            height={195}
-            className="absolute left-0 top-0"
-          />
-        </Link>
 
         <p className="text-xl font-bold">Halo Linuxers! Selamat Datang di</p>
 
