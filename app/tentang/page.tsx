@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import TentangHero from "@/components/sections/tentang/TentangHero";
 import WhoAreWe from "@/components/sections/tentang/WhoAreWe";
 import Sejarah from "@/components/sections/tentang/Sejarah";
+import FotoDivisi from "@/components/sections/tentang/FotoDivisi";
 
 export const metadata: Metadata = {
   title: "Tentang | Batam Linux User Group",
@@ -43,7 +44,9 @@ export default function TentangPage() {
           <span className="text-[#ffda23]">Batam Linux Group </span>2026
         </span>
       </h2>
-      {/* TODO: carousel foto divisi (Frame 28) masuk di sini */}
+
+      {/* Carousel foto per divisi (Frame 28) */}
+      <FotoDivisi />
     </div>
   );
 }
