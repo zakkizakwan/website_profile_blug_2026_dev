@@ -13,12 +13,12 @@ const navRight = [
 
 // TODO: ganti href dengan link asli organisasi
 const socials = [
-  { name: "Email", href: "mailto:", icon: "/images/footer/mail.svg" },
-  { name: "Instagram", href: "#", icon: "/images/footer/instagram.svg" },
-  { name: "LinkedIn", href: "#", icon: "/images/footer/linkedin.svg" },
-  { name: "YouTube", href: "#", icon: "/images/footer/youtube.svg" },
-  { name: "Facebook", href: "#", icon: "/images/footer/facebook.svg" },
-  { name: "TikTok", href: "#", icon: "/images/footer/tiktok.svg" },
+  { name: "Email", href: "mailto:intiblug@gmail.com", icon: "/images/footer/mail.svg" },
+  { name: "Instagram", href: "https://www.instagram.com/batamlinux/", icon: "/images/footer/instagram.svg" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/linux-group/", icon: "/images/footer/linkedin.svg" },
+  { name: "YouTube", href: "https://www.youtube.com/@batamlinux9734", icon: "/images/footer/youtube.svg" },
+  { name: "Facebook", href: "https://web.facebook.com/batamlinux/", icon: "/images/footer/facebook.svg" },
+  { name: "TikTok", href: "https://www.tiktok.com/@batamlinuxusergroup", icon: "/images/footer/tiktok.svg" },
 ];
 
 const linkClass = "text-xl text-black hover:underline underline-offset-4";
