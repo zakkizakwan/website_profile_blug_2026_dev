@@ -34,8 +34,8 @@ Website ini menggunakan sistem routing **Next.js App Router**:
 
 | Rute | Halaman | Fitur & Komponen Utama |
 | :--- | :--- | :--- |
-| `/` | **Beranda** | • **Hero**: Sambutan, ajakan pendaftaran OSC 2026, logo Open Source Initiative.<br>• **Video Profile**: Tautan dan preview interaktif channel YouTube Batam Linux.<br>• **Logo Divisi**: Selektor interaktif 5 divisi (Inti, HRD, Siber, Programming, Medinfo) lengkap dengan foto ketua dan deskripsi divisi.<br>• **Pengurus**: Carousel 2 slide banner BPH BLUG 2026 berlatar tipografi Karantina dan foto bersama.<br>• **Tujuan BLUG**: Kutipan visi filosofis organisasi.<br>• **Visi & Misi**: Kartu interaktif flip/hover untuk membaca detail visi & misi.<br>• **Keseruan Belajar**: Program unggulan (Belajar Linux bareng Siber & Belajar Programming bareng BLUG). |
-| `/tentang` | **Tentang Kami** | • **Tentang Hero**: Sambutan halaman tentang kami.<br>• **Who Are We**: Pengenalan identitas BLUG.<br>• **Sejarah**: Timeline & narasi kilas balik berdirinya komunitas di Politeknik Negeri Batam.<br>• **BPH Header**: Bagian pembuka struktur Badan Pengurus Harian. |
+| `/` | **Beranda** | • **Hero**: Sambutan, ajakan pendaftaran OSC 2026 via komponen `OscButton`, logo Open Source Initiative.<br>• **Video Profile**: Tautan langsung dan preview thumbnail resmi YouTube profil Batam Linux dengan efek hover interaktif.<br>• **Logo Divisi**: Selektor interaktif 5 divisi (Inti, HRD, Siber, Programming, Medinfo) lengkap dengan foto ketua dan deskripsi divisi.<br>• **Pengurus**: Carousel banner BPH BLUG dengan animasi transisi, teks reveal di belakang foto, indikator slide dots, dan optimasi gambar.<br>• **Tujuan BLUG**: Kutipan visi filosofis organisasi.<br>• **Visi & Misi**: Kartu interaktif flip/hover untuk membaca detail visi & misi.<br>• **Keseruan Belajar**: Program unggulan (Belajar Linux bareng Siber & Belajar Programming bareng BLUG). |
+| `/tentang` | **Tentang Kami** | • **Tentang Hero**: Sambutan halaman tentang kami dengan tombol `OscButton`.<br>• **Who Are We**: Pengenalan identitas BLUG.<br>• **Sejarah**: Timeline & narasi kilas balik berdirinya komunitas di Politeknik Negeri Batam.<br>• **BPH Header & Foto Divisi**: Bagian pembuka struktur kepengurusan dan galeri carousel foto dokumentasi per divisi (Inti, HRD, Siber, Programming, Medinfo). |
 | `/artikel` | **Artikel & Workshop** | • **Artikel Hero**: Pengantar artikel.<br>• **Pencarian & Filter Kategori**: Filter kata kunci query `?q=` dan filter tag kategori `?tag=`.<br>• **Artikel Unggulan & Grid**: Daftar artikel dan workshop.<br>• **Paginasi**: Navigasi halaman `?page=`.<br>• **Suspense Streaming**: Pemuatan data berbasis Next.js Suspense. |
 | `/kontak` | **Kontak Kami** | • **Kontak Info**: Informasi email, sosial media (Instagram, GitHub, YouTube), dan alamat sekretariat dengan kartu glassmorphism.<br>• **Kontak Form**: Formulir pesan langsung bagi pengunjung/mitra. |
 
@@ -165,7 +165,7 @@ website_profile_blug_2026_dev/
 │   ├── sections/           # Komponen section per fitur:
 │   │   ├── artikel/        # Komponen khusus halaman artikel (Hero, Filter, Cards)
 │   │   ├── kontak/         # Komponen khusus halaman kontak (KontakInfo, KontakForm)
-│   │   ├── tentang/        # Komponen khusus halaman tentang (TentangHero, WhoAreWe, Sejarah)
+│   │   ├── tentang/        # Komponen khusus halaman tentang (TentangHero, WhoAreWe, Sejarah, FotoDivisi)
 │   │   ├── Hero.tsx        # Section Hero beranda & CTA OSC
 │   │   ├── HomeGlow.tsx    # Efek cahaya latar belakang beranda
 │   │   ├── KeseruanBelajar.tsx # Section program unggulan
@@ -175,6 +175,7 @@ website_profile_blug_2026_dev/
 │   │   ├── VideoProfile.tsx# Section video profil YouTube
 │   │   └── VisiMisi.tsx    # Section flip card visi & misi
 │   └── ui/                 # Komponen antarmuka yang dapat digunakan ulang (Reusable UI):
+│       ├── OscButton.tsx   # Tombol pendaftaran OSC yang digunakan lintas section
 │       ├── ProgramCard.tsx # Kartu program kerja
 │       └── SectionTitle.tsx# Judul section dengan border gradasi khas
 ├── lib/
@@ -187,7 +188,7 @@ website_profile_blug_2026_dev/
 │       ├── hero/           # Maskot OSC & logo OSI
 │       ├── pengurus/       # Foto pengurus BPH BLUG
 │       ├── program/        # Icon & ilustrasi program unggulan
-│       └── tentang/        # Foto sejarah & dokumentasi tentang kami
+│       └── tentang/        # Foto sejarah, hero, serta dokumentasi foto per divisi (`divisi/`)
 ├── next.config.ts          # Konfigurasi Next.js (Turbopack, cacheComponents, partialPrefetching)
 ├── package.json            # Daftar dependensi dan scripts npm
 ├── tsconfig.json           # Konfigurasi TypeScript
