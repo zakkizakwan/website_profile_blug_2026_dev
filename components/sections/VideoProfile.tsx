@@ -44,15 +44,21 @@ export default function VideoProfile() {
   return (
     <section ref={ref} className="relative px-6 pb-24 lg:px-0 lg:pb-[224px]">
       <div className="mx-auto grid max-w-[969px] items-start gap-8 lg:grid-cols-[371px_1fr] lg:gap-[28px]">
-        {/* Kiri: kotak video YouTube */}
         <a
-          href="#" // TODO: ganti dengan link channel YouTube Batam Linux
-          className={`border-grad-yellow relative flex h-[196px] items-center justify-center rounded-[11px] lg:mt-[6px] ${anim} ${
-            visible ? shown : hiddenYT
-          }`}
+          href="https://youtu.be/HqK7idXPL90?si=NNXLfE4hFXBc2Ht0"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Buka video profil di YouTube"
+          className={`border-grad-yellow group relative flex h-[196px] items-center justify-center rounded-[11px] lg:mt-[6px] ${anim} ${visible ? shown : hiddenYT}`}
         >
-          <span className="text-[clamp(1.25rem,6vw,42px)] font-bold text-white">
-            YT Batam Linux
+          {/* Thumbnail */}
+          <span className="absolute inset-0 overflow-hidden rounded-[11px]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://img.youtube.com/vi/HqK7idXPL90/hqdefault.jpg"
+              alt=""
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+            />
           </span>
         </a>
 
@@ -60,23 +66,20 @@ export default function VideoProfile() {
         <div>
           <div className="relative h-[77px] w-full max-w-[488px]">
             <div
-              className={`border-grad-red absolute inset-0 rounded-[11.5px] backdrop-blur-[15px] shadow-[0_2px_12px_-1px_rgba(0,0,0,0.25)] ${anim} ${
-                visible ? shown : hiddenBox
-              }`}
+              className={`border-grad-red absolute inset-0 rounded-[11.5px] backdrop-blur-[15px] shadow-[0_2px_12px_-1px_rgba(0,0,0,0.25)] ${anim} ${visible ? shown : hiddenBox
+                }`}
             />
             <h2
-              className={`absolute inset-0 flex items-center justify-center text-[clamp(1.75rem,8vw,59px)] font-bold leading-none text-[#fff8d6] ${anim} ${
-                visible ? shown : hiddenTitle
-              }`}
+              className={`absolute inset-0 flex items-center justify-center text-[clamp(1.75rem,8vw,59px)] font-bold leading-none text-[#fff8d6] ${anim} ${visible ? shown : hiddenTitle
+                }`}
             >
               VIDEO PROFILE
             </h2>
           </div>
 
           <p
-            className={`mt-[10px] text-base font-semibold text-white lg:text-[20px] ${anim} ${
-              visible ? shown : hiddenDesc
-            }`}
+            className={`mt-[10px] text-base font-semibold text-white lg:text-[20px] ${anim} ${visible ? shown : hiddenDesc
+              }`}
           >
             Kenali lebih dekat perjalanan dan semangat kami dalam membangun
             ekosistem digital yang terbuka. Melalui video profil ini, temukan

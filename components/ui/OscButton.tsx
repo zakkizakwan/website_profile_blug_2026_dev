@@ -21,7 +21,7 @@ const ease = "transition duration-300 ease-out motion-reduce:transition-none";
 export default function OscButton({ className = "" }: { className?: string }) {
   return (
     <Link
-      href="#" // TODO: ganti dengan link pendaftaran OSC
+      href="https://blug.polibatam.ac.id/osc2026/" // TODO: ganti dengan link pendaftaran OSC
       aria-label="Daftar OSC 2026"
       style={{ width: px(672.755), height: px(389.899) }}
       className={`group relative block focus-visible:outline-none ${className}`}

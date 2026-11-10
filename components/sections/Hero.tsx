@@ -7,7 +7,6 @@ export default function Hero() {
       {/* Tombol Daftar OSC: di luar wrapper supaya `right` dihitung dari tepi section */}
       <OscButton className="mb-10 lg:absolute lg:right-[57px] lg:top-[28px] lg:mb-0" />
       <div className="relative">
-        {/* Tombol Daftar OSC (kanan atas di desktop) */}
 
         <p className="text-xl font-bold">Halo Linuxers! Selamat Datang di</p>
 
