@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Montserrat, Hanken_Grotesk, Karantina } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SiteChrome from "@/components/layout/SiteChrome";
 const karantina = Karantina({ subsets: ["latin"], weight: "700", variable: "--font-karantina" });
 const hanken_grotesk = Hanken_Grotesk({ subsets: ["latin"], weight: "400", variable: "--font-hanken" });
 import "./globals.css";
@@ -28,10 +30,18 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${inter.variable} ${montserrat.variable} ${hanken_grotesk.variable} ${karantina.variable}`}>
       <body className="flex min-h-screen flex-col">
-        <Navbar />
+        <Suspense fallback={null}>
+          <SiteChrome>
+            <Navbar />
+          </SiteChrome>
+        </Suspense>
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Suspense fallback={null}>
+          <SiteChrome>
+            <Footer />
+          </SiteChrome>
+        </Suspense>
       </body>
     </html>
   );
-}
+}
