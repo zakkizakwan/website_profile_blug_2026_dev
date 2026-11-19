@@ -20,10 +20,16 @@ export type Artikel = {
   gambar: string;
 };
 
+/** Data yang diisi admin saat menambah / mengubah artikel (id & slug dibuat oleh "backend"). */
+export type ArtikelInput = Omit<Artikel, "id" | "slug">;
+
+/** Gambar bawaan bila artikel dibuat tanpa gambar. */
+export const GAMBAR_DEFAULT = "/images/artikel/placeholder.svg";
+
 const LOREM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam";
 
-const ARTIKEL: Artikel[] = [
+const SEED: Artikel[] = [
   {
     id: 1,
     slug: "bnb-programming-react-js",
@@ -71,6 +77,12 @@ const ARTIKEL: Artikel[] = [
   },
 ];
 
+// Disimpan di globalThis supaya perubahan (tambah/edit/hapus) tidak ter-reset oleh hot reload.
+// Data mock tetap kembali ke awal bila server di-restart.
+const store = globalThis as unknown as { __artikel?: Artikel[]; __artikelNextId?: number };
+const ARTIKEL: Artikel[] = (store.__artikel ??= SEED.map((a) => ({ ...a })));
+store.__artikelNextId ??= Math.max(...SEED.map((a) => a.id)) + 1;
+
 /** Daftar artikel, terbaru dulu. q = kata kunci (judul / ringkasan), kategori = filter tag. */
 export async function getArtikelList(
   opts: { q?: string; kategori?: string } = {},
@@ -91,4 +103,83 @@ export async function getArtikelBySlug(slug: string): Promise<Artikel | null> {
 /** Daftar kategori/tag yang ada (tanpa "Semua"). */
 export async function getKategori(): Promise<string[]> {
   return [...new Set(ARTIKEL.map((a) => a.kategori))];
+}
+
+/* ------------------------------------------------------------------ */
+/* Tambahan untuk panel admin (mock)                                   */
+/* ------------------------------------------------------------------ */
+
+function buatSlug(judul: string, abaikanId?: number): string {
+  const dasar =
+    judul
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "artikel";
+  let slug = dasar;
+  let n = 2;
+  while (ARTIKEL.some((a) => a.slug === slug && a.id !== abaikanId)) slug = `${dasar}-${n++}`;
+  return slug;
+}
+
+/** Satu artikel berdasarkan id (untuk halaman edit admin). */
+export async function getArtikelById(id: number): Promise<Artikel | null> {
+  return ARTIKEL.find((a) => a.id === id) ?? null;
+}
+
+/** Tambah artikel baru. */
+export async function createArtikel(input: ArtikelInput): Promise<Artikel> {
+  const artikel: Artikel = {
+    id: store.__artikelNextId!++,
+    slug: buatSlug(input.judul),
+    ...input,
+    gambar: input.gambar || GAMBAR_DEFAULT,
+  };
+  ARTIKEL.push(artikel);
+  return artikel;
+}
+
+/** Ubah artikel. Mengembalikan null bila id tidak ditemukan. Gambar kosong = pakai gambar lama. */
+export async function updateArtikel(id: number, input: ArtikelInput): Promise<Artikel | null> {
+  const idx = ARTIKEL.findIndex((a) => a.id === id);
+  if (idx === -1) return null;
+  const lama = ARTIKEL[idx];
+  ARTIKEL[idx] = {
+    ...lama,
+    ...input,
+    slug: input.judul === lama.judul ? lama.slug : buatSlug(input.judul, id),
+    gambar: input.gambar || lama.gambar,
+  };
+  return ARTIKEL[idx];
+}
+
+/** Hapus artikel. Mengembalikan true bila ada yang terhapus. */
+export async function deleteArtikel(id: number): Promise<boolean> {
+  const idx = ARTIKEL.findIndex((a) => a.id === id);
+  if (idx === -1) return false;
+  ARTIKEL.splice(idx, 1);
+  return true;
+}
+
+/* Autentikasi admin: akun & token palsu. Ganti dengan endpoint login sungguhan nanti. */
+const MOCK_ADMIN = { username: "admin", password: "admin123" };
+const MOCK_TOKEN = "mock-admin-session-token";
+
+export type Session = { username: string };
+
+/** Login admin. Mengembalikan token sesi, atau null bila username/password salah. */
+export async function loginAdmin(
+  username: string,
+  password: string,
+): Promise<{ token: string; username: string } | null> {
+  if (username === MOCK_ADMIN.username && password === MOCK_ADMIN.password) {
+    return { token: MOCK_TOKEN, username: MOCK_ADMIN.username };
+  }
+  return null;
+}
+
+/** Cek token sesi. Mengembalikan data admin, atau null bila token tidak valid. */
+export async function verifySession(token: string): Promise<Session | null> {
+  return token === MOCK_TOKEN ? { username: MOCK_ADMIN.username } : null;
 }
